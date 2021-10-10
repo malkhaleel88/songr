@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="style.css">
+    <link th:href="@{/albums.css}" rel="stylesheet"/>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
     <p th:text="'Title:  '+'   '+${album.title}"></p>
     <p th:text="${'artist:  '+'  '+album.artist}"></p>
     <p th:text="${'songCount:  '+'  '+album.songCount}"></p>
-    <p th:text="'sec:  '+'   '+${album.length}"></p>
+    <p th:text="'length:  '+'   '+${album.length}"></p>
 
 </div>
 </body>
