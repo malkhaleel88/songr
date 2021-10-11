@@ -1,9 +1,16 @@
 package com.songrApp.songr.model;
 
-import java.util.ArrayList;
-import java.util.Date;
 
+import javax.persistence.*;
+
+
+@Entity
 public class Album {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     private String title;
     private String artist;
@@ -18,6 +25,14 @@ public class Album {
         this.songCount = songCount;
         this.length = length;
         this.imageUrl = imageUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
