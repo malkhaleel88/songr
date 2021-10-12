@@ -27,6 +27,10 @@ public class Album {
         this.imageUrl = imageUrl;
     }
 
+    public Album() {
+
+    }
+
     public Long getId() {
         return id;
     }

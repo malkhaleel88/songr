@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.ArrayList;
-
 
 @Controller
 public class RoutesController {
@@ -50,13 +48,13 @@ public class RoutesController {
 //    }
 
     @GetMapping("/albums")
-    public String getClassInformation(Model model) {
+    public String getAlbumsInformation(Model model) {
     model.addAttribute("albums", albumRepository.findAll());
     return "albums";
 }
 
     @PostMapping("/albums")
-    public RedirectView createNewBlogPost(@ModelAttribute Album album) {
+    public RedirectView createNewAlbum(@ModelAttribute Album album) {
         albumRepository.save(album);
         return new RedirectView("albums");
     }
