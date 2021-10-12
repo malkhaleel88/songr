@@ -1,7 +1,9 @@
 package com.songrApp.songr.controller;
 
 import com.songrApp.songr.model.Album;
+import com.songrApp.songr.model.Song;
 import com.songrApp.songr.repository.AlbumRepository;
+import com.songrApp.songr.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,12 @@ public class RoutesController {
 
     @Autowired
     private AlbumRepository albumRepository;
+
+    private final SongRepository songRepository;
+    public RoutesController(SongRepository songRepository) {
+        this.songRepository = songRepository;
+    }
+
 
     @GetMapping("/hello")
     public String greetings(@RequestParam(name = "name", required = false, defaultValue = "world") String name, Model model) {
@@ -47,6 +55,10 @@ public class RoutesController {
 //        return "albums";
 //    }
 
+    /**
+     * lab 12
+     */
+
     @GetMapping("/albums")
     public String getAlbumsInformation(Model model) {
     model.addAttribute("albums", albumRepository.findAll());
@@ -57,5 +69,47 @@ public class RoutesController {
     public RedirectView createNewAlbum(@ModelAttribute Album album) {
         albumRepository.save(album);
         return new RedirectView("albums");
+    }
+
+    /**
+     * lab 13
+     */
+
+    @PostMapping("/v2/songs")
+    public RedirectView addNewSong(@ModelAttribute SongDTO songDTO) {
+        Album album = albumRepository.findAlbumByTitle(songDTO.getAlbum()).orElseThrow();
+        Song newPost = new Song(album, songDTO.getTitle());
+        songRepository.save(newSong);
+
+        return new RedirectView("songs");
+    }
+
+    @GetMapping("/v2/posts/authors/{author}")
+    public String findPostByAuthor(@PathVariable String author, Model model) {
+        List<Post> posts = postRepository.findAllByAuthor_Username(author);
+        model.addAttribute("authorPost", posts);
+
+        return "post";
+    }
+
+    @GetMapping("/v2/posts/{postId}")
+    public String findPostByPostId(@PathVariable String postId, Model model) {
+        Post post = postRepository.findById(Long.parseLong(postId)).orElseThrow();
+        model.addAttribute("authorPost", post);
+
+        return "post";
+    }
+
+    @GetMapping("/signup")
+    public String getSignUpPage() {
+        return "signup";
+    }
+
+    @PostMapping("/signup/authors")
+    public RedirectView signUpAuthor(@ModelAttribute Author author) {
+        authorRepository.save(author);
+
+        // we should then show the post creation page
+        return new RedirectView("/v2/posts");
     }
 }
