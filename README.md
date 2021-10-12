@@ -34,3 +34,37 @@ First I used @Controller  to implement Web Application, its annotation indicates
 - String albums () it has one parameter Model to return an array that contains three albums, and then displayed  those three on the page .
 
 - In all pages you can see the navbar and this have all links to all pages.
+
+--------------------------------------------------------------------------------------------------------------
+
+## Lab:12 - Spring and REST
+
+### Overview
+
+The requirement for this lab is how the user can add album to the albums page by fill the forms.
+
+### Router:
+
+#### [http://localhost:8080/addAlbum](http://localhost:8080/albums)
+
+* This route is for a page that contains a form that users fill in to add albums to the album page.
+
+### Getting Started
+
+To run the app you should follow the following steps:
+
+* [Getting started with Spring](https://spring.io/guides/gs/serving-web-content/) : This website show you how to build an application by **Spring**.
+
+    * This is the dependencies build.gradle    file
+    ```
+       dependencies {
+	   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	   runtimeOnly('org.postgresql:postgresql')
+	   implementation 'org.springframework. boot:spring-boot-starter-thymeleaf'
+	   implementation 'org.springframework.boot:spring-boot-starter-web'
+	   developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+       }
+      ```
+
+
