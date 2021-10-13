@@ -68,7 +68,7 @@ To run the app you should follow the following steps:
       ```
 ---------------------------------------------------------------------------------------------------------------
 
-## Lab:12 - Related Resources and Integration Testing
+## Lab:13 - Related Resources and Integration Testing
 
 Song model, has a title, a length, a trackNumber, and the album on which that song appears.
 A user sees information about all the songs on the site.
