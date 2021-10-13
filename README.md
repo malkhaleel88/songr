@@ -66,5 +66,18 @@ To run the app you should follow the following steps:
 	   testImplementation 'org.springframework.boot:spring-boot-starter-test'
        }
       ```
+---------------------------------------------------------------------------------------------------------------
 
+## Lab:12 - Related Resources and Integration Testing
 
+Song model, has a title, a length, a trackNumber, and the album on which that song appears.
+A user sees information about all the songs on the site.
+A user is able to view a page with data about one particular album.
+A user is able to add songs to an album.
+A user is able to see the songs that belong to an album when looking at that album.
+
+http://localhost:8080/addSong/{title} ->
+will send you to the page that contains:
+
+- songs on that album.
+- form to add song on the album.

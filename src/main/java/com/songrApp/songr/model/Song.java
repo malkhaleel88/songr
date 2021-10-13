@@ -19,8 +19,7 @@ public class Song {
 
     private Album album;
 
-    public Song(Long id, String title, long length, int trackNumber, Album album) {
-        this.id = id;
+    public Song(String title, long length, int trackNumber, Album album) {
         this.title = title;
         this.length = length;
         this.trackNumber = trackNumber;
@@ -28,6 +27,11 @@ public class Song {
     }
 
     public Song() {
+    }
+
+    public Song(Album album, String title) {
+        this.title = title;
+        this.album = album;
     }
 
     public void setId(Long id) {

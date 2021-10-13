@@ -75,41 +75,34 @@ public class RoutesController {
      * lab 13
      */
 
-    @PostMapping("/v2/songs")
-    public RedirectView addNewSong(@ModelAttribute SongDTO songDTO) {
-        Album album = albumRepository.findAlbumByTitle(songDTO.getAlbum()).orElseThrow();
-        Song newPost = new Song(album, songDTO.getTitle());
-        songRepository.save(newSong);
 
-        return new RedirectView("songs");
+    @GetMapping("/songs")
+    public String getAllSongs(Model model){
+        model.addAttribute("song",songRepository.findAll());
+        return "songs";
     }
 
-    @GetMapping("/v2/posts/authors/{author}")
-    public String findPostByAuthor(@PathVariable String author, Model model) {
-        List<Post> posts = postRepository.findAllByAuthor_Username(author);
-        model.addAttribute("authorPost", posts);
-
-        return "post";
+    @GetMapping("/albums/{title}")
+    public String getAlbum(@PathVariable String title,Model model){
+        model.addAttribute("album",albumRepository.findAlbumByTitle(title));
+        return "getAlbum";
     }
 
-    @GetMapping("/v2/posts/{postId}")
-    public String findPostByPostId(@PathVariable String postId, Model model) {
-        Post post = postRepository.findById(Long.parseLong(postId)).orElseThrow();
-        model.addAttribute("authorPost", post);
 
-        return "post";
+    @GetMapping("/addSong/{title}")
+    public String getAddSongPage(@PathVariable String title, Model model) {
+        model.addAttribute("album", albumRepository.findAlbumByTitle(title));
+        return "addSong";
     }
 
-    @GetMapping("/signup")
-    public String getSignUpPage() {
-        return "signup";
-    }
+    @PostMapping("/addSong/{title}")
+    public RedirectView addSongToAlbum(@PathVariable String title, @ModelAttribute Song song) {
+        Album album= albumRepository.findAlbumByTitle(title);
+        song.setAlbum(album);
+        album.setAddedSong(song);
+        albumRepository.save(album);
+        songRepository.save(song);
 
-    @PostMapping("/signup/authors")
-    public RedirectView signUpAuthor(@ModelAttribute Author author) {
-        authorRepository.save(author);
-
-        // we should then show the post creation page
-        return new RedirectView("/v2/posts");
+        return new RedirectView("/albums");
     }
 }

@@ -35,6 +35,14 @@ public class Album {
 
     }
 
+    public List<Song> getAddedSong() {
+        return addedSong;
+    }
+
+    public void setAddedSong(Song song) {
+        this.addedSong.add(song);
+    }
+
     public Long getId() {
         return id;
     }
@@ -82,4 +90,6 @@ public class Album {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+
 }
