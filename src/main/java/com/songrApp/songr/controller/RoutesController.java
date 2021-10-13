@@ -1,7 +1,9 @@
 package com.songrApp.songr.controller;
 
 import com.songrApp.songr.model.Album;
+import com.songrApp.songr.model.Song;
 import com.songrApp.songr.repository.AlbumRepository;
+import com.songrApp.songr.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,12 @@ public class RoutesController {
 
     @Autowired
     private AlbumRepository albumRepository;
+
+    private final SongRepository songRepository;
+    public RoutesController(SongRepository songRepository) {
+        this.songRepository = songRepository;
+    }
+
 
     @GetMapping("/hello")
     public String greetings(@RequestParam(name = "name", required = false, defaultValue = "world") String name, Model model) {
@@ -47,6 +55,10 @@ public class RoutesController {
 //        return "albums";
 //    }
 
+    /**
+     * lab 12
+     */
+
     @GetMapping("/albums")
     public String getAlbumsInformation(Model model) {
     model.addAttribute("albums", albumRepository.findAll());
@@ -57,5 +69,40 @@ public class RoutesController {
     public RedirectView createNewAlbum(@ModelAttribute Album album) {
         albumRepository.save(album);
         return new RedirectView("albums");
+    }
+
+    /**
+     * lab 13
+     */
+
+
+    @GetMapping("/songs")
+    public String getAllSongs(Model model){
+        model.addAttribute("song",songRepository.findAll());
+        return "songs";
+    }
+
+    @GetMapping("/albums/{title}")
+    public String getAlbum(@PathVariable String title,Model model){
+        model.addAttribute("album",albumRepository.findAlbumByTitle(title));
+        return "getAlbum";
+    }
+
+
+    @GetMapping("/addSong/{title}")
+    public String getAddSongPage(@PathVariable String title, Model model) {
+        model.addAttribute("album", albumRepository.findAlbumByTitle(title));
+        return "addSong";
+    }
+
+    @PostMapping("/addSong/{title}")
+    public RedirectView addSongToAlbum(@PathVariable String title, @ModelAttribute Song song) {
+        Album album= albumRepository.findAlbumByTitle(title);
+        song.setAlbum(album);
+        album.setAddedSong(song);
+        albumRepository.save(album);
+        songRepository.save(song);
+
+        return new RedirectView("/albums");
     }
 }
