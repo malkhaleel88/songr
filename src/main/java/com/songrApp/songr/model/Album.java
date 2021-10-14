@@ -4,10 +4,8 @@ package com.songrApp.songr.model;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Entity
 public class Album {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,27 +18,29 @@ public class Album {
     private String imageUrl;
 
 
-    @OneToMany(mappedBy = "album")
-    private List<Song> addedSong ;
+    @OneToMany
+    private List<Song> songsList;
 
-    public Album(String title, String artist, int songCount, long length, String imageUrl) {
+
+    public Album(Long id, String title, String artist, int songCount, long length, String imageUrl, List<Song> songsList) {
+        this.id = id;
         this.title = title;
         this.artist = artist;
         this.songCount = songCount;
         this.length = length;
         this.imageUrl = imageUrl;
+        this.songsList = songsList;
     }
 
     public Album() {
-
     }
 
-    public List<Song> getAddedSong() {
-        return addedSong;
+    public List<Song> getSongsList() {
+        return songsList;
     }
 
-    public void setAddedSong(Song song) {
-        this.addedSong.add(song);
+    public void setSongsList(List<Song> songsList) {
+        this.songsList = songsList;
     }
 
     public Long getId() {

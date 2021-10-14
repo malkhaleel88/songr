@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head><meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link th:href="@{/albums.css}" rel="stylesheet"/>-->
+</head>
+<body>
+
+   <div th:each="album:${albums}" class="album">
+       <div  class="card mb-3" style="max-width: 540px;">
+           <div class="row g-0">
+               <div class="col-md-4">
+                   <img th:src="@{${album.imageUrl}}"  class="img-fluid rounded-start" alt="..." src="">
+               </div>
+               <div class="col-md-8">
+                   <div class="card-body">
+                       <h5 th:text="'Title :   '+'   '+${album.title}" class="card-title" name="title"></h5>
+                       <p th:text="'Artist :  '+'  '+${album.artist}" class="card-text"></p>
+                       <p th:text="'Song Count : '+'  '+${album.songCount}" class="card-text"><small class="text-muted"></small></p>
+                       <p th:text="'Length :  '+'   '+${album.length}" class="card-text"><small class="text-muted"></small></p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+</body>
+</html>

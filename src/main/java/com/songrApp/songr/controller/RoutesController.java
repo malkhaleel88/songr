@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.transaction.Transactional;
+
 
 @Controller
 public class RoutesController {
@@ -55,7 +57,7 @@ public class RoutesController {
 //        return "albums";
 //    }
 
-    /**
+     /**
      * lab 12
      */
 
@@ -71,38 +73,42 @@ public class RoutesController {
         return new RedirectView("albums");
     }
 
-    /**
+     /**
      * lab 13
      */
 
 
     @GetMapping("/songs")
-    public String getAllSongs(Model model){
-        model.addAttribute("song",songRepository.findAll());
+    public String getSongs(Model model) {
+        model.addAttribute("songs", songRepository.findAll());
         return "songs";
+
     }
 
     @GetMapping("/albums/{title}")
-    public String getAlbum(@PathVariable String title,Model model){
-        model.addAttribute("album",albumRepository.findAlbumByTitle(title));
-        return "getAlbum";
+    public String getOneAlbum(@PathVariable String title, Model model) {
+        model.addAttribute("albums", albumRepository.findAlbumByTitle(title));
+        return "oneAlbum";
+
     }
 
-
-    @GetMapping("/addSong/{title}")
-    public String getAddSongPage(@PathVariable String title, Model model) {
+    @GetMapping("/albums/add/{title}")
+    public String viewAdd(@PathVariable String title, Model model) {
         model.addAttribute("album", albumRepository.findAlbumByTitle(title));
         return "addSong";
+
     }
 
-    @PostMapping("/addSong/{title}")
-    public RedirectView addSongToAlbum(@PathVariable String title, @ModelAttribute Song song) {
-        Album album= albumRepository.findAlbumByTitle(title);
-        song.setAlbum(album);
-        album.setAddedSong(song);
-        albumRepository.save(album);
-        songRepository.save(song);
 
+    @Transactional
+    @PostMapping("/albums/add/{title}")
+    public RedirectView createNewSongs(@PathVariable String title, @ModelAttribute Song song) {
+        Album album = albumRepository.findAlbumByTitle(title);
+        song.setAlbum(album);
+        album.getSongsList().add(song);
+        songRepository.save(song);
+        albumRepository.save(album);
         return new RedirectView("/albums");
     }
+
 }
