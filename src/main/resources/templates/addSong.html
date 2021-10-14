@@ -1,28 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add Song</title>
+    <title>Title</title>
 </head>
 <body>
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up Author</title>
-</head>
-<body>
+<form th:action="@{/albums/add/__${title}__}" method="post">
 
-<div>
-    <form th:action="@{/addSong/__${title}__}" method="post">
-        <p>Title</p><input type="text" name="title"/></br>
-        <p>Length</p><input type="number" name="length"/></br>
-        <p>Track Number</p><input type="number" name="trackNumber"/></br>
-        <button type="submit">Submit</button>
-    </form>
-</div>
-
-</body>
-</html>
+    <h5>Title</h5><input type="text" name="title"/>
+    <h5>Track Number</h5><input type="number" name="trackNumber"/>
+    <h5>Length</h5><input type="number" name="length"/>
+    <button type="submit">Submit</button>
+</form>
 </body>
 </html>

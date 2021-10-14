@@ -15,7 +15,7 @@ public class Song {
     private int trackNumber;
 
     @ManyToOne
-    @JoinColumn(name = "album_id")
+    @JoinColumn(name = "album_id", nullable = false)
 
     private Album album;
 
@@ -26,13 +26,15 @@ public class Song {
         this.album = album;
     }
 
+    public Song(String title, long length, int trackNumber) {
+        this.title = title;
+        this.length = length;
+        this.trackNumber = trackNumber;
+    }
+
     public Song() {
     }
 
-    public Song(Album album, String title) {
-        this.title = title;
-        this.album = album;
-    }
 
     public void setId(Long id) {
         this.id = id;
